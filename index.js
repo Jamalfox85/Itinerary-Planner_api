@@ -6,7 +6,7 @@ const itineraryRoutes = require("./routes/itinerary");
 const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 443;
 
 // Cors
 const corsOptions = {
