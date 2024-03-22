@@ -31,6 +31,10 @@ app.use("/user", userRoutes);
 // Define itinerary routes
 app.use("/itinerary", itineraryRoutes);
 
+app.use("/health", (req, res) => {
+  res.json({ message: "API health test successful!" });
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);
