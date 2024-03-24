@@ -38,4 +38,5 @@ app.use("/health", (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);
+  res.json({ message: "Listening" });
 });
