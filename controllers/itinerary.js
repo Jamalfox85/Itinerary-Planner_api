@@ -3,8 +3,10 @@ const Itinerary = require("../models/Itinerary");
 const getItineraries = async (req, res, next) => {
   try {
     const user_id = req.headers.user_id;
-    const itineraries = await Itinerary.find({ user_id });
-    // console.log("ITINERARIES RETURNED: ", itineraries);
+    let itineraries = await Itinerary.find({ user_id });
+    itineraries = itineraries.sort((a, b) => {
+      return a.dateRange[0] - b.dateRange[0];
+    });
     res.json({ itineraries });
   } catch (error) {
     // res.next(409);
@@ -71,7 +73,6 @@ const deleteRestaurant = async (req, res, next) => {
 };
 
 const deleteItinerary = async (req, res, next) => {
-  console.log("ping");
   try {
     await Itinerary.deleteOne({ _id: req.headers.itinerary_id }).then((response) => {
       console.log(response);
