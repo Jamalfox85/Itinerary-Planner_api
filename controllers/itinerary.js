@@ -48,6 +48,18 @@ const addActivity = async (req, res, next) => {
   }
 };
 
+const updateActivities = async (req, res, next) => {
+  const { itinerary_id, activityList } = req.body;
+  console.log("UPDATING", itinerary_id, activityList);
+  try {
+    const itinerary = Itinerary.updateOne({ _id: itinerary_id }, { $set: { activities: activityList } }).exec();
+    await itinerary.save();
+    res.json({ message: "Activities Updated", itinerary });
+  } catch (error) {
+    res.json({ error });
+  }
+};
+
 const addRestaurant = async (req, res, next) => {
   const { itinerary_id, restaurant } = req.body;
 
@@ -84,4 +96,4 @@ const deleteItinerary = async (req, res, next) => {
   }
 };
 
-module.exports = { getItineraries, getItinerary, addItinerary, addActivity, addRestaurant, deleteRestaurant, deleteItinerary };
+module.exports = { getItineraries, getItinerary, addItinerary, addActivity, updateActivities, addRestaurant, deleteRestaurant, deleteItinerary };
