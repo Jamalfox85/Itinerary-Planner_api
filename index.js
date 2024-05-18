@@ -24,10 +24,9 @@ connectDB();
 app.use(express.json());
 
 // Test Route
-app.use("/", (req, res) => {
-  console.log(process.env.MONGODB_URI);
-  res.json({ message: "Site's working! For now...", mongodbUri: process.env.MONGODB_URI });
-});
+// app.use("/", (req, res) => {
+//   res.json({ message: "Site's working! For now...", mongodbUri: process.env.MONGODB_URI });
+// });
 
 // Define authentication routes
 app.use("/auth", authRoutes);
@@ -39,7 +38,6 @@ app.use("/user", userRoutes);
 app.use("/itinerary", itineraryRoutes);
 
 app.use("/health", (req, res) => {
-  console.log(process.env.MONGODB_URI);
   res.json({ message: "API health test successful!", mongodbUri: process.env.MONGODB_URI });
 });
 
