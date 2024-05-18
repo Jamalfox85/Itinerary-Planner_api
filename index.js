@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const connectDB = require("./db");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
@@ -6,7 +7,7 @@ const itineraryRoutes = require("./routes/itinerary");
 const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 3200;
+const PORT = process.env.PORT || 3000;
 
 // Cors
 const corsOptions = {
@@ -21,6 +22,11 @@ connectDB();
 
 // Parse JSON request body
 app.use(express.json());
+
+// Test Route
+app.get("/", (res, req) => {
+  res.json({ message: "Site's working! For now...", mongodbUri: process.env.MONGODB_URI });
+});
 
 // Define authentication routes
 app.use("/auth", authRoutes);
@@ -39,3 +45,5 @@ app.use("/health", (req, res) => {
 app.listen(PORT, () => {
   console.log(`SERVER LISTENING ON PORT ${PORT}`);
 });
+
+module.exports.handler = serverless(app);
